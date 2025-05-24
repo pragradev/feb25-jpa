@@ -2,7 +2,7 @@ spring:
   application:
     name: feb25-jpa
   datasource:
-    url: jdbc:h2:mem:appdb
+    url: jdbc:h2:./appdb
     username: sa
     password: sa123
 
@@ -12,6 +12,6 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 
     show-sql: true
