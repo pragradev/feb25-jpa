@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: feb25-jpa
+  datasource:
+    url: jdbc:h2:mem:appdb
+    username: sa
+    password: sa123
+
+  h2:
+    console:
+      enabled: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+
+    show-sql: true
