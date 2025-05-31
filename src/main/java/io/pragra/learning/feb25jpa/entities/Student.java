@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import java.util.Objects;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Builder
 @Table(name = "STU")
