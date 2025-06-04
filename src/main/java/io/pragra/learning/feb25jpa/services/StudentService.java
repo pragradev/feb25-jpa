@@ -60,5 +60,9 @@ public class StudentService {
         return allByFirstName;
     }
 
+    public List<String> getLastNames(String name){
+        return studentRepo.findAllLastNamesByFirstName(name);
+    }
+
 
 }

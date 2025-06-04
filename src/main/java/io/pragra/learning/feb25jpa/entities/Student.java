@@ -14,6 +14,7 @@ import java.util.Objects;
 @Table(name = "STU")
 public class Student {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(length = 50, nullable = true, name = "NAME")
     private String firstName;
