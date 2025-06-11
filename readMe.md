@@ -85,6 +85,8 @@ MVC: JS View() : html/css/js - UI
 ]
 
 
+REST : HTTP any method
 
+SOAP : HTTP POST
 
 

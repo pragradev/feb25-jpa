@@ -1,8 +1,11 @@
 package io.pragra.learning.feb25jpa.api;
 
 import io.pragra.learning.feb25jpa.dto.StudentDTO;
+import io.pragra.learning.feb25jpa.dto.StudentTo;
+import io.pragra.learning.feb25jpa.entities.Phone;
 import io.pragra.learning.feb25jpa.entities.Student;
 import io.pragra.learning.feb25jpa.services.StudentService;
+import io.pragra.learning.feb25jpa.util.StudentUtils;
 import jdk.jfr.ContentType;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import java.util.Optional;
 public class StudentController {
     @Autowired
     StudentService studentService;
+    @Autowired
+    StudentUtils studentUtils;
 // HTTP:GET http://localhost:8080/student/getAll
     //@RequestMapping(method = RequestMethod.GET,path = "/getAll")
     @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,16 +43,31 @@ public class StudentController {
     }
 
     @GetMapping("/byId")
-    public Optional<Student> getById(@RequestParam("id") Integer identification){
-        Optional<Student> studentById = studentService.getStudentById(identification);
-
-        return studentById;
+    public StudentTo getById(@RequestParam("id") Integer identification){
+        Optional<Student> optionalStudent = studentService.getStudentById(identification);
+        StudentTo studentTo = new StudentTo();
+        if(optionalStudent.isPresent()){
+            studentUtils.converterStudentEntitytoTO(studentTo,optionalStudent.get());
+        }
+        return studentTo;
     }
     @GetMapping("/byId/{id}")
-    public Optional<Student> getByIdInPath(@PathVariable("id") Integer id){
-        Optional<Student> studentById = studentService.getStudentById(id);
-
-        return studentById;
+    public StudentTo getByIdInPath(@PathVariable("id") Integer id){
+        Optional<Student> optionalStudent = studentService.getStudentById(id);
+        StudentTo studentTo = new StudentTo();
+        if(optionalStudent.isPresent()){
+            studentUtils.converterStudentEntitytoTO(studentTo,optionalStudent.get());
+        }
+        return studentTo;
+    }
+    @GetMapping("/getPhone/{id}")
+    public Phone getPhoneIdInPath(@PathVariable("id") Integer id){
+        Optional<Student> optionalStudent = studentService.getStudentById(id);
+        Phone phone = null;
+        if(optionalStudent.isPresent()){
+            phone = optionalStudent.get().getPhone();
+        }
+        return phone;
     }
 
     @PostMapping("/create")
@@ -81,6 +101,11 @@ public class StudentController {
     @PostMapping("/lastnames")
         public List<String> getAllLastNames(@RequestBody StudentDTO studentDTO){
         return studentService.getLastNames(studentDTO.getFirstName());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable Integer id){
+        return studentService.deleteStudent(id);
     }
 
 

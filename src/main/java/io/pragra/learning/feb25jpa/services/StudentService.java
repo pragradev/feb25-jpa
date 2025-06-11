@@ -1,6 +1,10 @@
 package io.pragra.learning.feb25jpa.services;
 
+import io.pragra.learning.feb25jpa.entities.Course;
+import io.pragra.learning.feb25jpa.entities.Phone;
 import io.pragra.learning.feb25jpa.entities.Student;
+import io.pragra.learning.feb25jpa.repo.CourseRepo;
+import io.pragra.learning.feb25jpa.repo.PhoneRepo;
 import io.pragra.learning.feb25jpa.repo.StudentRepo;
 import io.pragra.learning.feb25jpa.util.StudentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,11 @@ public class StudentService {
     @Autowired
     StudentUtils studentUtils;
 
+    @Autowired
+    PhoneRepo phoneRepo;
+    @Autowired
+    CourseRepo courseRepo;
+
     public List<Student> getStudents(){
         List<Student> studentList = studentRepo.findAll();
         return studentList;
@@ -27,10 +36,19 @@ public class StudentService {
 
     public Optional<Student> getStudentById(Integer id){
         Optional<Student> optionalStudent = studentRepo.findById(id);
+        //---
+        //---
+        //--
+        //--- student.getCourses
+
+        //student.getPhone
         return optionalStudent;
     }
 
     public Student createStudent(Student student){
+//        courseRepo.saveAll(student.getCourses());
+//        Phone savedPhone = phoneRepo.save(student.getPhone());
+//        student.setPhone(savedPhone);
         Student studentEntity = studentRepo.save(student);
         return studentEntity;
     }
@@ -62,6 +80,17 @@ public class StudentService {
 
     public List<String> getLastNames(String name){
         return studentRepo.findAllLastNamesByFirstName(name);
+    }
+
+    public boolean deleteStudent(Integer id){
+        try {
+            studentRepo.deleteById(id);
+            return true;
+        }catch (Exception e){
+            // log
+            return false;
+        }
+
     }
 
 

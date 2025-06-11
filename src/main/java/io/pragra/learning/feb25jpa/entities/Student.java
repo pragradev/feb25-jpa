@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -21,6 +22,11 @@ public class Student {
     private String lastName;
     private String phoneNumber;
     private String email;
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Phone phone;
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Course> courses;
+
 
     @Override
     public String toString() {
@@ -95,5 +101,21 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phone phone) {
+        this.phone = phone;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }
