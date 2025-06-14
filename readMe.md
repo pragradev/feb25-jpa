@@ -89,4 +89,8 @@ REST : HTTP any method
 
 SOAP : HTTP POST
 
+Rest Template
+Web Client
+Feign client
+
 

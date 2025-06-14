@@ -4,9 +4,11 @@ import io.pragra.learning.feb25jpa.services.StudentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
+@EnableFeignClients
 public class Feb25JpaApplication {
 
     public static void main(String[] args) {
